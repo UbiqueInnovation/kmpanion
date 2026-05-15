@@ -62,7 +62,6 @@ kotlin {
 			compileOnly(libs.compose.ui.unit)
 			compileOnly(libs.compose.foundation)
 			compileOnly(libs.compose.material3)
-			compileOnly(libs.compose.runtime)
 			compileOnly(libs.compose.ui.tooling)
 			compileOnly(libs.compose.ui.tooling.preview)
 		}
