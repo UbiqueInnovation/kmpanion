@@ -12,6 +12,7 @@ import android.content.res.Configuration
 import android.graphics.drawable.Drawable
 import android.location.LocationManager
 import android.os.Build
+import android.view.WindowManager
 import android.view.accessibility.AccessibilityManager
 import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
@@ -181,5 +182,15 @@ fun Context.getLocationPermissionState(): LocationPermissionState {
 		isCoarseGranted && isBackgroundGranted -> LocationPermissionState.COARSE_BACKGROUND
 		isCoarseGranted -> LocationPermissionState.COARSE_FOREGROUND
 		else -> LocationPermissionState.DENIED
+	}
+}
+
+/**
+ * Set the screen brightness to full or default.
+ */
+fun Context.setBrightness(full: Boolean) {
+	val activity = this as? Activity ?: return
+	activity.window.attributes = activity.window.attributes?.apply {
+		screenBrightness = if (full) 1.0f else WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_NONE
 	}
 }

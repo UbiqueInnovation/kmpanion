@@ -12,7 +12,7 @@ kotlin {
 
 	android {
 		namespace = "ch.ubique.libs.kmpanion"
-		minSdk = 23
+		minSdk = 26
 		compileSdk {
 			version = release(36) {
 				minorApiLevel = 1
@@ -40,6 +40,7 @@ kotlin {
 	sourceSets {
 		commonMain.dependencies {
 			compileOnly(libs.androidx.lifecycle.viewmodel.savedstate)
+			compileOnly(libs.kotlinx.collections)
 			compileOnly(libs.kotlinx.coroutines.core)
 			compileOnly(libs.vanniktech.blurhash)
 
@@ -53,6 +54,7 @@ kotlin {
 
 		androidMain.dependencies {
 			compileOnly(libs.androidx.appcompat)
+			compileOnly(libs.androidx.lifecycle.process)
 			compileOnly(libs.androidx.exif)
 
 			compileOnly(project.dependencies.platform(libs.compose.bom))
@@ -62,8 +64,11 @@ kotlin {
 			compileOnly(libs.compose.ui.unit)
 			compileOnly(libs.compose.foundation)
 			compileOnly(libs.compose.material3)
+			compileOnly(libs.compose.material3.adaptive.layout)
 			compileOnly(libs.compose.ui.tooling)
 			compileOnly(libs.compose.ui.tooling.preview)
+
+			compileOnly(libs.accompanist.permissions)
 		}
 
 		iosMain.dependencies {}

@@ -1,4 +1,4 @@
-package ch.ubique.libs.kmpanion.extensions
+package ch.ubique.libs.kmpanion.compose.extensions
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
