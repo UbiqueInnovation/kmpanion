@@ -3,7 +3,14 @@ package ch.ubique.libs.kmpanion.extensions
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class StringExtensionsTests {
+class AndroidStringExtensionsTests {
+
+	@Test
+	fun testMD5() {
+		assertEquals("912ec803b2ce49e4a541068d495ab570", "asdf".md5())
+		assertEquals("ad3424fdf72a46deb9e80976e616b25d", "Hello World!".repeat(512).md5())
+		assertEquals("d41d8cd98f00b204e9800998ecf8427e", "".md5())
+	}
 
 	@Test
 	fun testReplaceAccentedLetters() {

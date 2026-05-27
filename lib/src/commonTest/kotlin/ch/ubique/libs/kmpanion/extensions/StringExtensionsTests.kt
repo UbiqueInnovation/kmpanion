@@ -5,7 +5,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertNull
 
-class AndroidStringExtensionsTests {
+class StringExtensionsTests {
 
 	@Test
 	fun testToEnum() {
