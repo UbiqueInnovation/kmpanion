@@ -1,4 +1,3 @@
-@file:JvmName("StringUtils")
 @file:Suppress("NOTHING_TO_INLINE")
 
 package ch.ubique.libs.kmpanion.extensions
@@ -7,6 +6,7 @@ import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 import java.text.Normalizer
 import java.util.Locale
+import kotlin.text.toHexString
 
 /**
  * Converts the first character of this String to upper case using Unicode mapping rules of the specified [locale].
@@ -29,3 +29,7 @@ fun String.urlEncode(): String {
 	return URLEncoder.encode(this, StandardCharsets.UTF_8.name())
 		.replace("+", "%20")
 }
+
+inline fun String.md5(): String = md5Bytes().toHexString()
+
+inline fun String.md5Bytes(): ByteArray = toByteArray().md5Bytes()
