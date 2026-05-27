@@ -1,7 +1,5 @@
 @file:Suppress("UnstableApiUsage")
 
-import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
-
 plugins {
 	alias(libs.plugins.kotlin.multiplatform)
 	alias(libs.plugins.android.library)
@@ -30,34 +28,28 @@ kotlin {
 		withHostTest {}
 	}
 
-	val xcf = XCFramework()
-	listOf(
-		iosX64(),
-		iosArm64(),
-		iosSimulatorArm64(),
-	).forEach {
-		it.binaries.framework {
-			baseName = "UbiqueKmpanion"
-			isStatic = true
-			xcf.add(this)
-		}
-	}
+	iosX64()
+	iosArm64()
+	iosSimulatorArm64()
+
+	jvm()
 
 	applyDefaultHierarchyTemplate()
 
 	sourceSets {
 		commonMain.dependencies {
-			implementation(libs.androidx.lifecycle.viewmodel.savedstate)
-			implementation(libs.kotlinx.coroutines.core)
+			compileOnly(libs.androidx.lifecycle.viewmodel.savedstate)
+			compileOnly(libs.kotlinx.coroutines.core)
 		}
 
 		commonTest.dependencies {
 			implementation(libs.kotlin.test)
+			implementation(libs.androidx.lifecycle.viewmodel.savedstate)
 		}
 
 		androidMain.dependencies {
-			implementation(libs.androidx.appcompat)
-			implementation(libs.androidx.exif)
+			compileOnly(libs.androidx.appcompat)
+			compileOnly(libs.androidx.exif)
 		}
 
 		iosMain.dependencies {
