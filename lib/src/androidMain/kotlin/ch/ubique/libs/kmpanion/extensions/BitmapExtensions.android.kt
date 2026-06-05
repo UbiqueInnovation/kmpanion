@@ -4,6 +4,10 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Matrix
 import android.graphics.Paint
+import android.util.Base64
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import java.io.ByteArrayOutputStream
 
 private val IDENTITY_MATRIX = Matrix()
 
@@ -41,4 +45,14 @@ fun Bitmap.rotated(angle: Float): Bitmap {
 	val matrix = Matrix()
 	matrix.postRotate(angle)
 	return Bitmap.createBitmap(this, 0, 0, width, height, matrix, true)
+}
+
+/**
+ * Encode [this] bitmap to a Base64 string.
+ */
+suspend fun Bitmap.asBase64(flags: Int = Base64.DEFAULT): String = withContext(Dispatchers.Default) {
+	val baos = ByteArrayOutputStream()
+	baos.use { compress(Bitmap.CompressFormat.JPEG, 100, it) }
+	val signatureData = baos.toByteArray()
+	return@withContext Base64.encodeToString(signatureData, flags)
 }

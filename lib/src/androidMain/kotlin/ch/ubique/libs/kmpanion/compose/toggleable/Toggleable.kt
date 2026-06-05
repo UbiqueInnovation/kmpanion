@@ -17,7 +17,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import ch.ubique.libs.kmpanion.extensions.alpha
+import ch.ubique.libs.kmpanion.compose.extensions.alpha
 
 /**
  * Convert a boolean value to a [ToggleableState]

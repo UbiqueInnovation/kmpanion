@@ -1,4 +1,4 @@
-package ch.ubique.libs.kmpanion.extensions
+package ch.ubique.libs.kmpanion.compose.extensions
 
 import androidx.annotation.FloatRange
 import androidx.compose.foundation.isSystemInDarkTheme
