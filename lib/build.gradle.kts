@@ -1,5 +1,7 @@
 @file:Suppress("UnstableApiUsage")
 
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat
+
 plugins {
 	alias(libs.plugins.kotlin.multiplatform)
 	alias(libs.plugins.android.library)
@@ -49,6 +51,7 @@ kotlin {
 
 		commonTest.dependencies {
 			implementation(libs.kotlin.test)
+			implementation(libs.kotlinx.coroutines.test)
 			implementation(libs.androidx.lifecycle.viewmodel.savedstate)
 		}
 
@@ -84,7 +87,7 @@ kotlin {
 tasks.withType(Test::class) {
 	testLogging {
 		setEvents(listOf("standardOut", "passed", "skipped", "failed"))
-		exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
+		exceptionFormat = TestExceptionFormat.FULL
 	}
 }
 
