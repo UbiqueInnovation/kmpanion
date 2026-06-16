@@ -41,10 +41,10 @@ kotlin {
 
 	sourceSets {
 		commonMain.dependencies {
-			compileOnly(libs.androidx.lifecycle.viewmodel.savedstate)
-			compileOnly(libs.kotlinx.collections)
-			compileOnly(libs.kotlinx.coroutines.core)
-			compileOnly(libs.vanniktech.blurhash)
+			implementation(libs.androidx.lifecycle.viewmodel.savedstate)
+			implementation(libs.kotlinx.collections)
+			implementation(libs.kotlinx.coroutines.core)
+			implementation(libs.vanniktech.blurhash)
 
 			implementation(libs.compose.multiplatform.runtime) // Necessary because of the Compose Compiler plugin
 		}
