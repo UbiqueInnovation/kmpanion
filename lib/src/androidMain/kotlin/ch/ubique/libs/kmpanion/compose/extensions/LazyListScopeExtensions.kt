@@ -24,8 +24,13 @@ fun LazyListScope.animatedItem(key: Any, content: @Composable LazyItemScope.() -
 /**
  * Convenience extension function to add a list of items to a [LazyListScope] that automatically applies the [androidx.compose.foundation.lazy.LazyItemScope.animateItem] modifier to each item
  */
-fun <T> LazyListScope.animatedItems(items: List<T>, key: (item: T) -> Any, content: @Composable LazyItemScope.(item: T) -> Unit) {
-	items(items, key = key) { item ->
+fun <T> LazyListScope.animatedItems(
+	items: List<T>,
+	key: (item: T) -> Any,
+	contentType: (item: T) -> Any? = { null },
+	content: @Composable LazyItemScope.(item: T) -> Unit,
+) {
+	items(items, key, contentType) { item ->
 		Box(Modifier.animateItem()) {
 			content.invoke(this@items, item)
 		}
