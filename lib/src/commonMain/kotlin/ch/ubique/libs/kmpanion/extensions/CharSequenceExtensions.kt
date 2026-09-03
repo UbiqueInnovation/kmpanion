@@ -4,6 +4,7 @@ import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.contract
 import kotlin.jvm.JvmOverloads
 
+
 /**
  * A [Regex] which allows only letters/marks of the Unicode categories, "-" and whitespace.
  *
@@ -14,23 +15,20 @@ val allowedNamesPattern: Regex = "[\\p{L}\\p{M}\\-\\s]+".toRegex()
 /**
  * Taken from android.util.Patterns.EMAIL_ADDRESS
  */
+
+//language=RegExp
 private val EMAIL_ADDRESS_REGEX: Regex = (
-		"[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}"
-				+ "\\@"
-				+ "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}"
-				+ "("
-				+ "\\."
-				+ "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}"
-				+ ")+"
+		"""[a-zA-Z0-9\+\.\_\%\-\+]{1,256}\@[a-zA-Z0-9][a-zA-Z0-9\-]{0,64}(\.[a-zA-Z0-9][a-zA-Z0-9\-]{0,25})+"""
 		).toRegex()
 
 /**
  * Taken from android.util.Patterns.PHONE
  */
-private val PHONE_REGEX: Regex = ( 				// sdd = space, dot, or dash
-		"(\\+[0-9]+[\\- \\.]*)?"        		// +<digits><sdd>*
+//language=RegExp
+private val PHONE_REGEX: Regex = (                // sdd = space, dot, or dash
+		"(\\+[0-9]+[\\- \\.]*)?"                // +<digits><sdd>*
 				+ "(\\([0-9]+\\)[\\- \\.]*)?"   // (<digits>)<sdd>*
-				+ "([0-9][0-9\\- \\.]+[0-9])" 	// <digit><digit|sdd>+<digit>
+				+ "([0-9][0-9\\- \\.]+[0-9])"    // <digit><digit|sdd>+<digit>
 		).toRegex()
 
 /**

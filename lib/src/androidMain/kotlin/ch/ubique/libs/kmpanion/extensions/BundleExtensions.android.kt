@@ -5,15 +5,12 @@ package ch.ubique.libs.kmpanion.extensions
 import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
+import androidx.core.os.BundleCompat
 import java.io.Serializable
 
 @Suppress("DEPRECATION")
 inline fun <reified T : Parcelable> Bundle.optionalParcelable(key: String) =
-	if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-		getParcelable(key, T::class.java)
-	} else {
-		getParcelable(key)
-	}
+	BundleCompat.getParcelable(this, key, T::class.java)
 
 @Suppress("DEPRECATION")
 inline fun <reified T : Parcelable> Bundle.optionalParcelableArrayList(key: String) =
@@ -69,3 +66,6 @@ inline fun Bundle.requireString(key: String) = requireNotNull(getString(key))
 inline fun buildBundle(block: Bundle.() -> Unit): Bundle {
 	return Bundle().also(block)
 }
+
+inline fun Bundle.getOptionalInt(key: String): Int? = if (containsKey(key)) getInt(key) else null
+

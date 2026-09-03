@@ -106,12 +106,17 @@ fun Context.isPackageInstalled(packageName: String): Boolean {
 	return list.isNotEmpty()
 }
 
-/**
- * Check whether an accessibility service (Talkback) is enabled.
+fun Context.getAccessibilityManager(): AccessibilityManager {
+	return getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager
+}
+
+/** Checks explicitly if TalkBack is enabled
+ * https://stackoverflow.com/questions/5116867/how-to-know-if-android-talkback-is-active
  */
+
 fun Context.isTalkBackEnabled(): Boolean {
-	val am = getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager?
-	return am != null && am.isEnabled && am.isTouchExplorationEnabled
+	val accessibilityManager = getAccessibilityManager()
+	return accessibilityManager.isEnabled && accessibilityManager.isTouchExplorationEnabled
 }
 
 /**
@@ -126,6 +131,10 @@ fun Context.isInDarkMode(): Boolean {
 		appCompatNightMode == AppCompatDelegate.MODE_NIGHT_YES -> true
 		else -> contextNightMode == Configuration.UI_MODE_NIGHT_YES
 	}
+}
+
+fun Context.isInLightMode(): Boolean {
+	return isInDarkMode().not()
 }
 
 /**
