@@ -5,6 +5,6 @@ import kotlinx.coroutines.flow.Flow
 /**
  * A platform-specific source providing the application lifecycle
  */
-internal interface AppLifecycleSource {
+interface AppLifecycleSource {
 	val state: Flow<AppLifecycleState>
 }

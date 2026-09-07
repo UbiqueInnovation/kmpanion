@@ -1,6 +1,5 @@
 package ch.ubique.libs.kmpanion.lifecycle
 
-import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -13,8 +12,7 @@ import platform.UIKit.UIApplicationDidBecomeActiveNotification
 import platform.UIKit.UIApplicationDidEnterBackgroundNotification
 import platform.UIKit.UIApplicationState
 
-@OptIn(ExperimentalForeignApi::class)
-private class IosAppLifecycleSource : AppLifecycleSource {
+class IosAppLifecycleSource : AppLifecycleSource {
 	override val state: Flow<AppLifecycleState> = callbackFlow {
 		val notificationCenter = NSNotificationCenter.defaultCenter
 		val mainQueue = NSOperationQueue.mainQueue

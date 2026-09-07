@@ -1,6 +1,6 @@
 package ch.ubique.libs.kmpanion.lifecycle
 
-internal enum class AppLifecycleState {
+enum class AppLifecycleState {
 	FOREGROUND,
 	BACKGROUND,
 }

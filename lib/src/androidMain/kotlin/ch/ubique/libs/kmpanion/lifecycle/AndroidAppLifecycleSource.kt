@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.flowOn
 
-private class AndroidAppLifecycleSource : AppLifecycleSource {
+class AndroidAppLifecycleSource : AppLifecycleSource {
 	override val state: Flow<AppLifecycleState> = callbackFlow {
 		val observer = object : DefaultLifecycleObserver {
 			override fun onStart(owner: LifecycleOwner) {
