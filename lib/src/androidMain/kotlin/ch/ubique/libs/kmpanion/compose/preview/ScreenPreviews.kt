@@ -6,6 +6,7 @@ import androidx.compose.ui.tooling.preview.Preview
 /**
  * A MultiPreview annotation for displaying a @Composable on a landscape phone in light and dark mode
  */
+@Deprecated("Use Adpative Previews instead")
 @Retention(AnnotationRetention.BINARY)
 @Target(AnnotationTarget.ANNOTATION_CLASS, AnnotationTarget.FUNCTION)
 @Preview(
@@ -27,6 +28,7 @@ annotation class PhonePortraitPreviews
 /**
  * A MultiPreview annotation for displaying a @Composable on a phone tablet in light and dark mode
  */
+@Deprecated("Use Adpative Previews instead")
 @Retention(AnnotationRetention.BINARY)
 @Target(AnnotationTarget.ANNOTATION_CLASS, AnnotationTarget.FUNCTION)
 @Preview(
@@ -48,6 +50,7 @@ annotation class PhoneLandscapePreviews
 /**
  * A MultiPreview annotation combining the [PhonePortraitPreviews] and [PhoneLandscapePreviews] annotations
  */
+@Deprecated("Use Adaptive Previews instead")
 @Retention(AnnotationRetention.BINARY)
 @Target(AnnotationTarget.ANNOTATION_CLASS, AnnotationTarget.FUNCTION)
 @PhonePortraitPreviews
@@ -57,6 +60,7 @@ annotation class PhonePreviews
 /**
  * A MultiPreview annotation for displaying a @Composable on a portrait tablet in light and dark mode
  */
+@Deprecated("Use Adpative Previews instead")
 @Retention(AnnotationRetention.BINARY)
 @Target(AnnotationTarget.ANNOTATION_CLASS, AnnotationTarget.FUNCTION)
 @Preview(
@@ -78,6 +82,7 @@ annotation class TabletPortraitPreviews
 /**
  * A MultiPreview annotation for displaying a @Composable on a landscape tablet in light and dark mode
  */
+@Deprecated("Use Adpative Previews instead")
 @Retention(AnnotationRetention.BINARY)
 @Target(AnnotationTarget.ANNOTATION_CLASS, AnnotationTarget.FUNCTION)
 @Preview(
@@ -99,6 +104,7 @@ annotation class TabletLandscapePreviews
 /**
  * A MultiPreview annotation combining the [TabletPortraitPreviews] and [TabletLandscapePreviews] annotations
  */
+@Deprecated("Use Adpative Previews instead")
 @Retention(AnnotationRetention.BINARY)
 @Target(AnnotationTarget.ANNOTATION_CLASS, AnnotationTarget.FUNCTION)
 @TabletPortraitPreviews
