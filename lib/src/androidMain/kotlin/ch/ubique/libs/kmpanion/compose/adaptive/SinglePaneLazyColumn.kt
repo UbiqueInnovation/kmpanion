@@ -3,10 +3,7 @@ package ch.ubique.libs.kmpanion.compose.adaptive
 import androidx.compose.foundation.OverscrollEffect
 import androidx.compose.foundation.gestures.FlingBehavior
 import androidx.compose.foundation.gestures.ScrollableDefaults
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.BoxWithConstraints
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.plus
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
@@ -15,21 +12,21 @@ import androidx.compose.foundation.rememberOverscrollEffect
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.coerceAtLeast
 import androidx.compose.ui.unit.dp
 
-/**
- * A wrapper around a [LazyColumn] that adds additional horizontal padding to the [contentPadding] to ensure the content is at most
- * [maxContentWidth] wide, and also respects the given [alignment].
- */
 @Composable
-fun SinglePaneLazyColumn(
+fun AdaptiveRoleLazyColumn(
+	role: AdaptiveRole,
 	modifier: Modifier = Modifier,
 
 	// Custom parameters
-	maxContentWidth: Dp = AdaptiveDefaults.singlePaneMaxWidth,
+	info: AdaptiveLayoutInfo = rememberAdaptiveLayoutInfo(),
+	config: AdaptiveRoleConfig = LocalAdaptiveRoleConfig.current,
 	alignment: Alignment.Horizontal = Alignment.CenterHorizontally,
+	maxContentWidth: Dp = config.policyFor(role).resolveMaxWidth(info.widthClass),
 
 	// Standard LazyColumn parameters (including their default values)
 	state: LazyListState = rememberLazyListState(),
@@ -42,20 +39,27 @@ fun SinglePaneLazyColumn(
 	overscrollEffect: OverscrollEffect? = rememberOverscrollEffect(),
 	content: LazyListScope.() -> Unit,
 ) {
-	BoxWithConstraints {
-		val availableWidth = (maxWidth - maxContentWidth).coerceAtLeast(0.dp)
+	val layoutDirection = LocalLayoutDirection.current
+	BoxWithConstraints(modifier = modifier.fillMaxWidth(), propagateMinConstraints = true) {
+		val horizontalContentPadding = contentPadding.calculateStartPadding(layoutDirection) +
+				contentPadding.calculateEndPadding(layoutDirection)
+		val availableWidth = if (maxContentWidth == Dp.Unspecified) {
+			0.dp
+		} else {
+			(maxWidth - horizontalContentPadding - maxContentWidth).coerceAtLeast(0.dp)
+		}
 		val horizontalPadding = when (alignment) {
 			Alignment.Start -> PaddingValues(end = availableWidth)
 			Alignment.End -> PaddingValues(start = availableWidth)
 			else -> PaddingValues(horizontal = availableWidth / 2)
 		}
 
-		val singlePaneContentPadding = contentPadding + horizontalPadding
+		val adaptiveContentPadding = contentPadding + horizontalPadding
 
 		LazyColumn(
-			modifier = modifier,
+			modifier = Modifier.fillMaxWidth(),
 			state = state,
-			contentPadding = singlePaneContentPadding,
+			contentPadding = adaptiveContentPadding,
 			reverseLayout = reverseLayout,
 			verticalArrangement = verticalArrangement,
 			horizontalAlignment = horizontalAlignment,
