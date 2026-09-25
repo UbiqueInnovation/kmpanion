@@ -11,9 +11,10 @@ import kotlin.math.min
 @Composable
 fun SinglePaneLayout(
 	modifier: Modifier = Modifier,
+	role: AdaptiveRole,
 	info: AdaptiveLayoutInfo = rememberAdaptiveLayoutInfo(),
-	config: AdaptiveLayoutConfig = LocalAdaptiveLayoutConfig.current,
-	maxWidth: Dp = AdaptiveDefaults.contentMaxWidth(info, config),
+	config: AdaptiveRoleConfig = LocalAdaptiveRoleConfig.current,
+	maxWidth: Dp = config.policyFor(role).resolveMaxWidth(info.widthClass),
 	alignment: Alignment = Alignment.TopCenter,
 	content: @Composable () -> Unit,
 ) {
