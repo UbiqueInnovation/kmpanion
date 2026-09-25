@@ -28,7 +28,9 @@ fun SinglePaneLazyColumn(
 	modifier: Modifier = Modifier,
 
 	// Custom parameters
-	maxContentWidth: Dp = AdaptiveDefaults.singlePaneMaxWidth,
+	info: AdaptiveLayoutInfo = rememberAdaptiveLayoutInfo(),
+	config: AdaptiveLayoutConfig = LocalAdaptiveLayoutConfig.current,
+	maxContentWidth: Dp = AdaptiveDefaults.contentMaxWidth(info, config),
 	alignment: Alignment.Horizontal = Alignment.CenterHorizontally,
 
 	// Standard LazyColumn parameters (including their default values)

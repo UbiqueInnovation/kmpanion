@@ -1,6 +1,5 @@
 package ch.ubique.libs.kmpanion.compose.adaptive
 
-import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
@@ -26,13 +25,15 @@ data class AdaptiveLayoutInfo(
 		get() = widthClass >= AdaptiveWidthClass.Expanded
 }
 
+/**
+ * Defines different width classes in use
+ */
 enum class AdaptiveWidthClass {
 	Compact,
 	Medium,
 	Expanded,
 }
 
-@OptIn(ExperimentalMaterial3AdaptiveApi::class)
 @Composable
 fun rememberAdaptiveLayoutInfo(): AdaptiveLayoutInfo {
 	val widthClass = currentWindowAdaptiveInfo().windowSizeClass.toAdaptiveWidthClass()
