@@ -577,6 +577,18 @@ fun MyScreenPreview() {
 }
 ```
 
+**`mock<T>()`** creates a no-op interface implementation for Android previews:
+
+```kotlin
+import ch.ubique.libs.kmpanion.compose.preview.mock
+
+@ComponentPreviews
+@Composable
+fun MyScreenPreview() {
+	MyScreen(actions = mock<MyCallbacks>())
+}
+```
+
 #### Screen
 
 **`ScreenBrightnessOverride`** — forces full brightness while the composable is in the composition (e.g. for QR code display) and
