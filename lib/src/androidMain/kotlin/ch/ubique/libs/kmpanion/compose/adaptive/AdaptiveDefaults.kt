@@ -2,9 +2,17 @@ package ch.ubique.libs.kmpanion.compose.adaptive
 
 import androidx.compose.ui.unit.dp
 
-object AdaptiveDefaults {
+object ContentRole : AdaptiveRole
+object ActionRole : AdaptiveRole
+object SheetRole : AdaptiveRole
 
-	/** The maximum width for a single-pane layout */
-	val singlePaneMaxWidth = 640.dp
-
-}
+val DefaultAdaptiveRoleConfig = AdaptiveRoleConfig(
+	mapOf(
+		ContentRole to AdaptivePolicy(
+			mediumMaxWidth = 720.dp,
+			expandedMaxWidth = 840.dp,
+		),
+		ActionRole to AdaptivePolicy(mediumMaxWidth = 420.dp),
+		SheetRole to AdaptivePolicy(mediumMaxWidth = 420.dp),
+	),
+)
