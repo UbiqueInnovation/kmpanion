@@ -9,7 +9,7 @@
 Available in the Ubique Artifactory:
 
 ```kotlin
-implementation("ch.ubique.kmp:kmpanion:0.0.1")
+implementation("ch.ubique.kmp:kmpanion:2026.12.31") // Example; use a published version from the Releases list.
 ```
 
 You may find the current version and version history in
@@ -697,7 +697,7 @@ Most features of this library can be implemented with test-driven development us
 To test any changes locally in an app, you can either include the library via dependency substitution in an application project,
 or deploy a build to your local maven repository and include that from any application:
 
-1. Define a unique custom version by setting the `VERSION_NAME` variable in the `gradle.properties` file.
+1. Define a unique local version by setting `LOCAL_VERSION_NAME` in `gradle.properties`, using the date-version format described below (for example, `2026.10.06.1`).
 2. Deploy the library artifact by running `./gradlew publishToMavenLocal`
 3. Reference the local maven repository in your application's build script:
 
@@ -724,10 +724,10 @@ and [Coverage](https://github.com/UbiqueInnovation/kmpanion/actions/workflows/co
 ## Deployment
 
 Create a [Release](https://github.com/UbiqueInnovation/kmpanion/releases),
-setting the Tag to the desired version prefixed with a `v`.
+setting the Tag to the desired date version prefixed with a `v` (for example, `v2026.12.31` or `v2026.12.31.1`).
 
 Each release on GitHub will be deployed to the Ubique Artifactory.
 
 * Group: `ch.ubique.kmp`
 * Artifact: `kmpanion`
-* Version: `major.minor.revision`
+* Version: `YYYY.MM.DD`, [Date-Ver](https://date-ver.com/) with an optional non-empty alphanumeric suffix, such as `YYYY.MM.DD.1` or `YYYY.MM.DD.rc1`
