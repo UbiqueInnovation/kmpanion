@@ -92,6 +92,14 @@ interface ToggleableScope {
 	)
 
 	/**
+	 * Displays a regular radio button that is [selected] or not and usin the [RadioButtonColors] returned by the [colorProvider]
+	 */
+	fun radio(
+		selected: Boolean,
+		colorProvider: @Composable () -> RadioButtonColors = { RadioButtonDefaults.colors() },
+	)
+
+	/**
 	 * Adds a [Spacer] with the given [size]
 	 */
 	fun spacing(size: Dp)
@@ -122,7 +130,7 @@ private class ToggleableScopeImpl : ToggleableScope {
 				state = toggleState,
 				onClick = null,
 				enabled = it,
-				colors = colorProvider.invoke()
+				colors = colorProvider.invoke(),
 			)
 		})
 	}
@@ -138,7 +146,18 @@ private class ToggleableScopeImpl : ToggleableScope {
 				onCheckedChange = null,
 				enabled = it,
 				thumbContent = thumbContent,
-				colors = colorProvider.invoke()
+				colors = colorProvider.invoke(),
+			)
+		})
+	}
+
+	override fun radio(selected: Boolean, colorProvider: @Composable (() -> RadioButtonColors)) {
+		items.add(ToggleableItem {
+			RadioButton(
+				selected = selected,
+				onClick = null,
+				enabled = it,
+				colors = colorProvider.invoke(),
 			)
 		})
 	}
