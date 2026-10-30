@@ -15,10 +15,11 @@ import androidx.compose.ui.platform.InspectorInfo
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import ch.ubique.libs.kmpanion.compose.preview.ScreenPreviews
+import ch.ubique.libs.kmpanion.compose.preview.DarkScreenPreviews
+import ch.ubique.libs.kmpanion.compose.preview.LightScreenPreviews
 
 fun Modifier.singlePaneWidth(
-	maxWidth: Dp = AdaptiveDefaults.singlePaneMaxWidth,
+	maxWidth: Dp = 640.dp,
 ): Modifier = this.then(
 	SinglePaneWidthElement(
 		maxWidth = maxWidth,
@@ -70,7 +71,8 @@ private class SinglePaneWidthModifier(
 	}
 }
 
-@ScreenPreviews
+@LightScreenPreviews
+@DarkScreenPreviews
 @Composable
 private fun SinglePaneWidthModifierPreview() {
 	Box(

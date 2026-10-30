@@ -1,4 +1,4 @@
-package ch.ubique.libs.kmpanion.compose.adaptive
+package ch.ubique.libs.kmpanion.compose.adaptive.layout
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -6,12 +6,24 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Dp
+import ch.ubique.libs.kmpanion.compose.adaptive.config.AdaptiveRole
+import ch.ubique.libs.kmpanion.compose.adaptive.config.AdaptiveRoleConfig
+import ch.ubique.libs.kmpanion.compose.adaptive.config.LocalAdaptiveRoleConfig
 import kotlin.math.min
 
+/**
+ * Lays out a single pane with the maximum width configured for [role].
+ *
+ * @param maxWidth maximum content width; defaults to the role policy for the current width class
+ * @param alignment position of the pane within the available space
+ */
 @Composable
 fun SinglePaneLayout(
 	modifier: Modifier = Modifier,
-	maxWidth: Dp = AdaptiveDefaults.singlePaneMaxWidth,
+	role: AdaptiveRole,
+	info: AdaptiveLayoutInfo = rememberAdaptiveLayoutInfo(),
+	config: AdaptiveRoleConfig = LocalAdaptiveRoleConfig.current,
+	maxWidth: Dp = config.policyFor(role).resolveMaxWidth(info.widthClass),
 	alignment: Alignment = Alignment.TopCenter,
 	content: @Composable () -> Unit,
 ) {

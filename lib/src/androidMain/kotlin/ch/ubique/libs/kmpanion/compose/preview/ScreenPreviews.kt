@@ -6,6 +6,7 @@ import androidx.compose.ui.tooling.preview.Preview
 /**
  * A MultiPreview annotation for displaying a @Composable on a landscape phone in light and dark mode
  */
+@Deprecated("Use ScreenPreviews instead")
 @Retention(AnnotationRetention.BINARY)
 @Target(AnnotationTarget.ANNOTATION_CLASS, AnnotationTarget.FUNCTION)
 @Preview(
@@ -27,6 +28,7 @@ annotation class PhonePortraitPreviews
 /**
  * A MultiPreview annotation for displaying a @Composable on a phone tablet in light and dark mode
  */
+@Deprecated("Use ScreenPreviews instead")
 @Retention(AnnotationRetention.BINARY)
 @Target(AnnotationTarget.ANNOTATION_CLASS, AnnotationTarget.FUNCTION)
 @Preview(
@@ -48,6 +50,8 @@ annotation class PhoneLandscapePreviews
 /**
  * A MultiPreview annotation combining the [PhonePortraitPreviews] and [PhoneLandscapePreviews] annotations
  */
+@Deprecated("Use ScreenPreviews instead")
+@Suppress("DEPRECATION")
 @Retention(AnnotationRetention.BINARY)
 @Target(AnnotationTarget.ANNOTATION_CLASS, AnnotationTarget.FUNCTION)
 @PhonePortraitPreviews
@@ -57,6 +61,7 @@ annotation class PhonePreviews
 /**
  * A MultiPreview annotation for displaying a @Composable on a portrait tablet in light and dark mode
  */
+@Deprecated("Use ScreenPreviews instead")
 @Retention(AnnotationRetention.BINARY)
 @Target(AnnotationTarget.ANNOTATION_CLASS, AnnotationTarget.FUNCTION)
 @Preview(
@@ -78,6 +83,7 @@ annotation class TabletPortraitPreviews
 /**
  * A MultiPreview annotation for displaying a @Composable on a landscape tablet in light and dark mode
  */
+@Deprecated("Use ScreenPreviews instead")
 @Retention(AnnotationRetention.BINARY)
 @Target(AnnotationTarget.ANNOTATION_CLASS, AnnotationTarget.FUNCTION)
 @Preview(
@@ -99,17 +105,62 @@ annotation class TabletLandscapePreviews
 /**
  * A MultiPreview annotation combining the [TabletPortraitPreviews] and [TabletLandscapePreviews] annotations
  */
+@Deprecated("Use ScreenPreviews instead")
+@Suppress("DEPRECATION")
 @Retention(AnnotationRetention.BINARY)
 @Target(AnnotationTarget.ANNOTATION_CLASS, AnnotationTarget.FUNCTION)
 @TabletPortraitPreviews
 @TabletLandscapePreviews
 annotation class TabletPreviews
 
-/**
- * A MultiPreview annotation for previewing screen level composables
- */
+/** Previews a screen at compact, medium, and expanded widths in light mode. */
 @Retention(AnnotationRetention.BINARY)
 @Target(AnnotationTarget.ANNOTATION_CLASS, AnnotationTarget.FUNCTION)
-@PhonePreviews
-@TabletPreviews
-annotation class ScreenPreviews
+@Preview(
+	name = "Compact - Light Mode",
+	widthDp = 640,
+	showBackground = true,
+	backgroundColor = PreviewDefaults.BACKGROUND_LIGHT_MODE,
+	uiMode = Configuration.UI_MODE_NIGHT_NO,
+)
+@Preview(
+	name = "Medium - Light Mode",
+	widthDp = 800,
+	showBackground = true,
+	backgroundColor = PreviewDefaults.BACKGROUND_LIGHT_MODE,
+	uiMode = Configuration.UI_MODE_NIGHT_NO,
+)
+@Preview(
+	name = "Expanded - Light Mode",
+	widthDp = 1000,
+	showBackground = true,
+	backgroundColor = PreviewDefaults.BACKGROUND_LIGHT_MODE,
+	uiMode = Configuration.UI_MODE_NIGHT_NO,
+)
+annotation class LightScreenPreviews
+
+/** Previews a screen at compact, medium, and expanded widths in dark mode. */
+@Retention(AnnotationRetention.BINARY)
+@Target(AnnotationTarget.ANNOTATION_CLASS, AnnotationTarget.FUNCTION)
+@Preview(
+	name = "Compact - Dark Mode",
+	widthDp = 640,
+	showBackground = true,
+	backgroundColor = PreviewDefaults.BACKGROUND_DARK_MODE,
+	uiMode = Configuration.UI_MODE_NIGHT_YES,
+)
+@Preview(
+	name = "Medium - Dark Mode",
+	widthDp = 800,
+	showBackground = true,
+	backgroundColor = PreviewDefaults.BACKGROUND_DARK_MODE,
+	uiMode = Configuration.UI_MODE_NIGHT_YES,
+)
+@Preview(
+	name = "Expanded - Dark Mode",
+	widthDp = 1000,
+	showBackground = true,
+	backgroundColor = PreviewDefaults.BACKGROUND_DARK_MODE,
+	uiMode = Configuration.UI_MODE_NIGHT_YES,
+)
+annotation class DarkScreenPreviews
