@@ -565,7 +565,8 @@ Multi-preview annotations covering common device/theme combinations:
 | `@DarkScreenPreviews`  | Compact, medium, and expanded widths in dark mode  |
 
 ```kotlin
-@ScreenPreviews
+@LightScreenPreviews
+@DarkScreenPreviews
 @Composable
 fun MyScreenPreview() {
 	MyTheme { MyScreen() }
