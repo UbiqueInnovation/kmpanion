@@ -1,4 +1,4 @@
-package ch.ubique.libs.kmpanion.compose.adaptive
+package ch.ubique.libs.kmpanion.compose.adaptive.layout
 
 import androidx.compose.foundation.OverscrollEffect
 import androidx.compose.foundation.gestures.FlingBehavior
@@ -16,7 +16,16 @@ import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.coerceAtLeast
 import androidx.compose.ui.unit.dp
+import ch.ubique.libs.kmpanion.compose.adaptive.config.AdaptiveRole
+import ch.ubique.libs.kmpanion.compose.adaptive.config.AdaptiveRoleConfig
+import ch.ubique.libs.kmpanion.compose.adaptive.config.LocalAdaptiveRoleConfig
 
+/**
+ * A [LazyColumn] whose content width is limited by the policy for [role].
+ *
+ * @param alignment horizontal position of the width-limited content
+ * @param maxContentWidth maximum content width; defaults to the role policy for the current width class
+ */
 @Composable
 fun AdaptiveRoleLazyColumn(
 	role: AdaptiveRole,

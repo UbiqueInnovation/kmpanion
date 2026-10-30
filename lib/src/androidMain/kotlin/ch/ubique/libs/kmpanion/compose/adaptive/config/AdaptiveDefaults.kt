@@ -1,4 +1,4 @@
-package ch.ubique.libs.kmpanion.compose.adaptive
+package ch.ubique.libs.kmpanion.compose.adaptive.config
 
 import androidx.compose.ui.unit.dp
 
@@ -6,6 +6,7 @@ object ContentRole : AdaptiveRole
 object ActionRole : AdaptiveRole
 object SheetRole : AdaptiveRole
 
+/** Default width policies containing Content, Action and Sheet Roles as default */
 val DefaultAdaptiveRoleConfig = AdaptiveRoleConfig(
 	mapOf(
 		ContentRole to AdaptivePolicy(

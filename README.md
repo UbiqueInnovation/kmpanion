@@ -558,16 +558,11 @@ PermissionScaffold(
 
 Multi-preview annotations covering common device/theme combinations:
 
-| Annotation                 | Renders on                           |
-|----------------------------|--------------------------------------|
-| `@ComponentPreviews`       | Light + dark mode                    |
-| `@PhonePortraitPreviews`   | Pixel 9 portrait, light + dark       |
-| `@PhoneLandscapePreviews`  | Pixel 9 landscape, light + dark      |
-| `@PhonePreviews`           | Portrait + landscape, light + dark   |
-| `@TabletPortraitPreviews`  | Pixel Tablet portrait, light + dark  |
-| `@TabletLandscapePreviews` | Pixel Tablet landscape, light + dark |
-| `@TabletPreviews`          | Portrait + landscape, light + dark   |
-| `@ScreenPreviews`          | All phone + tablet variants          |
+| Annotation             | Renders on                                         |
+|------------------------|----------------------------------------------------|
+| `@ComponentPreviews`   | Light + dark mode                                  |
+| `@LightScreenPreviews` | Compact, medium, and expanded widths in light mode |
+| `@DarkScreenPreviews`  | Compact, medium, and expanded widths in dark mode  |
 
 ```kotlin
 @ScreenPreviews
