@@ -131,8 +131,14 @@ private class DrawShimmerModifier(
 	): MeasureResult {
 		val childConstraints = when (val width = shimmerOptions.width) {
 			is ShimmerWidth.Default -> constraints
-			is ShimmerWidth.FillMaxWidth -> constraints.copy(minWidth = constraints.maxWidth, maxWidth = constraints.maxWidth)
-			is ShimmerWidth.FixedWidth -> constraints.copy(minWidth = width.width.roundToPx(), maxWidth = width.width.roundToPx())
+			is ShimmerWidth.FillMaxWidth -> if (visible) constraints.copy(
+				minWidth = constraints.maxWidth,
+				maxWidth = constraints.maxWidth
+			) else constraints
+			is ShimmerWidth.FixedWidth -> if (visible) constraints.copy(
+				minWidth = width.width.roundToPx(),
+				maxWidth = width.width.roundToPx()
+			) else constraints
 		}
 
 		val placeable = measurable.measure(childConstraints)
