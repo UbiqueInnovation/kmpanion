@@ -35,7 +35,7 @@ enum class AdaptiveWidthClass {
 
 /** Creates layout information from the current window size class. */
 @Composable
-fun rememberAdaptiveLayoutInfo(): AdaptiveLayoutInfo {
+fun currentAdaptiveLayoutInfo(): AdaptiveLayoutInfo {
 	val widthClass = currentWindowAdaptiveInfo().windowSizeClass.toAdaptiveWidthClass()
 	return AdaptiveLayoutInfo(widthClass = widthClass)
 }

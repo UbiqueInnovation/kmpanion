@@ -14,16 +14,36 @@ import kotlin.math.min
 /**
  * Lays out a single pane with the maximum width configured for [role].
  *
- * @param maxWidth maximum content width; defaults to the role policy for the current width class
+ * @param info layout information used to select the applicable width limit
+ * @param config configuration containing the policy for [role]
  * @param alignment position of the pane within the available space
  */
 @Composable
 fun SinglePaneLayout(
-	modifier: Modifier = Modifier,
 	role: AdaptiveRole,
-	info: AdaptiveLayoutInfo = rememberAdaptiveLayoutInfo(),
+	modifier: Modifier = Modifier,
+	info: AdaptiveLayoutInfo = currentAdaptiveLayoutInfo(),
 	config: AdaptiveRoleConfig = LocalAdaptiveRoleConfig.current,
-	maxWidth: Dp = config.policyFor(role).resolveMaxWidth(info.widthClass),
+	alignment: Alignment = Alignment.TopCenter,
+	content: @Composable () -> Unit,
+) {
+	SinglePaneLayout(
+		maxWidth = config.policyFor(role).resolveMaxWidth(info.widthClass),
+		modifier = modifier,
+		alignment = alignment,
+		content = content,
+	)
+}
+
+/**
+ * Lays out a single pane constrained to [maxWidth].
+ *
+ * @param alignment position of the pane within the available space
+ */
+@Composable
+fun SinglePaneLayout(
+	maxWidth: Dp,
+	modifier: Modifier = Modifier,
 	alignment: Alignment = Alignment.TopCenter,
 	content: @Composable () -> Unit,
 ) {
@@ -32,7 +52,11 @@ fun SinglePaneLayout(
 		content = content,
 	) { measurables, constraints ->
 		// Constrain the content to either the layout maxWidth or the specified maxWidth
-		val maxWidthInPx = min(constraints.maxWidth, maxWidth.roundToPx())
+		val maxWidthInPx = if (maxWidth == Dp.Unspecified) {
+			constraints.maxWidth
+		} else {
+			min(constraints.maxWidth, maxWidth.roundToPx())
+		}
 		val newConstraints = Constraints(
 			maxWidth = maxWidthInPx,
 			maxHeight = constraints.maxHeight,

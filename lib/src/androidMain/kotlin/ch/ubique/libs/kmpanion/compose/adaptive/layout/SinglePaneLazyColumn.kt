@@ -23,8 +23,9 @@ import ch.ubique.libs.kmpanion.compose.adaptive.config.LocalAdaptiveRoleConfig
 /**
  * A [LazyColumn] whose content width is limited by the policy for [role].
  *
+ * @param info layout information used to select the applicable width limit
+ * @param config configuration containing the policy for [role]
  * @param alignment horizontal position of the width-limited content
- * @param maxContentWidth maximum content width; defaults to the role policy for the current width class
  */
 @Composable
 fun AdaptiveRoleLazyColumn(
@@ -32,12 +33,47 @@ fun AdaptiveRoleLazyColumn(
 	modifier: Modifier = Modifier,
 
 	// Custom parameters
-	info: AdaptiveLayoutInfo = rememberAdaptiveLayoutInfo(),
+	info: AdaptiveLayoutInfo = currentAdaptiveLayoutInfo(),
 	config: AdaptiveRoleConfig = LocalAdaptiveRoleConfig.current,
 	alignment: Alignment.Horizontal = Alignment.CenterHorizontally,
-	maxContentWidth: Dp = config.policyFor(role).resolveMaxWidth(info.widthClass),
 
 	// Standard LazyColumn parameters (including their default values)
+	state: LazyListState = rememberLazyListState(),
+	contentPadding: PaddingValues = PaddingValues(0.dp),
+	reverseLayout: Boolean = false,
+	verticalArrangement: Arrangement.Vertical = if (!reverseLayout) Arrangement.Top else Arrangement.Bottom,
+	horizontalAlignment: Alignment.Horizontal = Alignment.Start,
+	flingBehavior: FlingBehavior = ScrollableDefaults.flingBehavior(),
+	userScrollEnabled: Boolean = true,
+	overscrollEffect: OverscrollEffect? = rememberOverscrollEffect(),
+	content: LazyListScope.() -> Unit,
+) {
+	SinglePaneLazyColumn(
+		maxContentWidth = config.policyFor(role).resolveMaxWidth(info.widthClass),
+		modifier = modifier,
+		alignment = alignment,
+		state = state,
+		contentPadding = contentPadding,
+		reverseLayout = reverseLayout,
+		verticalArrangement = verticalArrangement,
+		horizontalAlignment = horizontalAlignment,
+		flingBehavior = flingBehavior,
+		userScrollEnabled = userScrollEnabled,
+		overscrollEffect = overscrollEffect,
+		content = content,
+	)
+}
+
+/**
+ * A [LazyColumn] whose content is constrained to [maxContentWidth].
+ *
+ * @param alignment horizontal position of the width-limited content
+ */
+@Composable
+fun SinglePaneLazyColumn(
+	maxContentWidth: Dp,
+	modifier: Modifier = Modifier,
+	alignment: Alignment.Horizontal = Alignment.CenterHorizontally,
 	state: LazyListState = rememberLazyListState(),
 	contentPadding: PaddingValues = PaddingValues(0.dp),
 	reverseLayout: Boolean = false,
@@ -52,15 +88,15 @@ fun AdaptiveRoleLazyColumn(
 	BoxWithConstraints(modifier = modifier.fillMaxWidth(), propagateMinConstraints = true) {
 		val horizontalContentPadding = contentPadding.calculateStartPadding(layoutDirection) +
 				contentPadding.calculateEndPadding(layoutDirection)
-		val availableWidth = if (maxContentWidth == Dp.Unspecified) {
+		val extraHorizontalPadding = if (maxContentWidth == Dp.Unspecified) {
 			0.dp
 		} else {
 			(maxWidth - horizontalContentPadding - maxContentWidth).coerceAtLeast(0.dp)
 		}
 		val horizontalPadding = when (alignment) {
-			Alignment.Start -> PaddingValues(end = availableWidth)
-			Alignment.End -> PaddingValues(start = availableWidth)
-			else -> PaddingValues(horizontal = availableWidth / 2)
+			Alignment.Start -> PaddingValues(end = extraHorizontalPadding)
+			Alignment.End -> PaddingValues(start = extraHorizontalPadding)
+			else -> PaddingValues(horizontal = extraHorizontalPadding / 2)
 		}
 
 		val adaptiveContentPadding = contentPadding + horizontalPadding

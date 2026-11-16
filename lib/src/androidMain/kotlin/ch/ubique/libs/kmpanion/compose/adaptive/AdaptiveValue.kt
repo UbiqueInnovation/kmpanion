@@ -3,7 +3,7 @@ package ch.ubique.libs.kmpanion.compose.adaptive
 import androidx.compose.runtime.Composable
 import ch.ubique.libs.kmpanion.compose.adaptive.layout.AdaptiveLayoutInfo
 import ch.ubique.libs.kmpanion.compose.adaptive.layout.AdaptiveWidthClass
-import ch.ubique.libs.kmpanion.compose.adaptive.layout.rememberAdaptiveLayoutInfo
+import ch.ubique.libs.kmpanion.compose.adaptive.layout.currentAdaptiveLayoutInfo
 
 
 /**
@@ -14,7 +14,7 @@ import ch.ubique.libs.kmpanion.compose.adaptive.layout.rememberAdaptiveLayoutInf
 @Composable
 fun <T> adaptiveValue(
 	compact: T,
-	info: AdaptiveLayoutInfo = rememberAdaptiveLayoutInfo(),
+	info: AdaptiveLayoutInfo = currentAdaptiveLayoutInfo(),
 	medium: T = compact,
 	expanded: T = medium,
 ): T = when (info.widthClass) {

@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 fun AdaptiveLayout(
 	compact: @Composable () -> Unit,
 	modifier: Modifier = Modifier,
-	info: AdaptiveLayoutInfo = rememberAdaptiveLayoutInfo(),
+	info: AdaptiveLayoutInfo = currentAdaptiveLayoutInfo(),
 	medium: @Composable () -> Unit = compact,
 	expanded: @Composable () -> Unit = medium,
 ) {

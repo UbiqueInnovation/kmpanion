@@ -22,8 +22,9 @@ import ch.ubique.libs.kmpanion.compose.adaptive.config.LocalAdaptiveRoleConfig
 fun AdaptiveRoleContainer(
 	role: AdaptiveRole,
 	modifier: Modifier = Modifier,
-	info: AdaptiveLayoutInfo = rememberAdaptiveLayoutInfo(),
+	info: AdaptiveLayoutInfo = currentAdaptiveLayoutInfo(),
 	config: AdaptiveRoleConfig = LocalAdaptiveRoleConfig.current,
+	contentAlignment: Alignment = Alignment.TopCenter,
 	content: @Composable BoxScope.() -> Unit,
 ) {
 	val maxWidth = config.policyFor(role).resolveMaxWidth(info.widthClass)
@@ -35,7 +36,7 @@ fun AdaptiveRoleContainer(
 
 	Box(
 		modifier = modifier.fillMaxWidth(),
-		contentAlignment = Alignment.TopCenter,
+		contentAlignment = contentAlignment,
 	) {
 		Box(modifier = widthModifier, content = content)
 	}
