@@ -25,7 +25,7 @@ import ch.ubique.libs.kmpanion.compose.preview.DarkScreenPreviews
 import ch.ubique.libs.kmpanion.compose.preview.LightScreenPreviews
 
 @Composable
-fun Modifier.singlePaneWidth(
+fun Modifier.adaptiveWidth(
 	role: AdaptiveRole = ContentRole,
 	info: AdaptiveLayoutInfo = currentAdaptiveLayoutInfo(),
 	config: AdaptiveRoleConfig = LocalAdaptiveRoleConfig.current,
@@ -98,7 +98,7 @@ private fun SinglePaneWidthModifierPreview() {
 		modifier = Modifier
 			.background(Color.Blue)
 			.height(50.dp)
-			.singlePaneWidth()
+			.adaptiveWidth()
 			.background(Color.Red)
 	)
 }

@@ -19,7 +19,7 @@ import kotlin.math.min
  * @param alignment position of the pane within the available space
  */
 @Composable
-fun SinglePaneLayout(
+fun AdaptiveRoleLayout(
 	role: AdaptiveRole,
 	modifier: Modifier = Modifier,
 	info: AdaptiveLayoutInfo = currentAdaptiveLayoutInfo(),
