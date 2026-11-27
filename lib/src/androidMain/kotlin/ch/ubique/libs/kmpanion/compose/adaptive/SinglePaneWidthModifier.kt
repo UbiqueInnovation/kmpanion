@@ -15,10 +15,26 @@ import androidx.compose.ui.platform.InspectorInfo
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import ch.ubique.libs.kmpanion.compose.preview.ScreenPreviews
+import ch.ubique.libs.kmpanion.compose.adaptive.config.AdaptiveRole
+import ch.ubique.libs.kmpanion.compose.adaptive.config.AdaptiveRoleConfig
+import ch.ubique.libs.kmpanion.compose.adaptive.config.ContentRole
+import ch.ubique.libs.kmpanion.compose.adaptive.config.LocalAdaptiveRoleConfig
+import ch.ubique.libs.kmpanion.compose.adaptive.layout.AdaptiveLayoutInfo
+import ch.ubique.libs.kmpanion.compose.adaptive.layout.currentAdaptiveLayoutInfo
+import ch.ubique.libs.kmpanion.compose.preview.DarkScreenPreviews
+import ch.ubique.libs.kmpanion.compose.preview.LightScreenPreviews
+
+@Composable
+fun Modifier.adaptiveWidth(
+	role: AdaptiveRole = ContentRole,
+	info: AdaptiveLayoutInfo = currentAdaptiveLayoutInfo(),
+	config: AdaptiveRoleConfig = LocalAdaptiveRoleConfig.current,
+): Modifier = this.singlePaneWidth(
+	maxWidth = config.policyFor(role).resolveMaxWidth(info.widthClass),
+)
 
 fun Modifier.singlePaneWidth(
-	maxWidth: Dp = AdaptiveDefaults.singlePaneMaxWidth,
+	maxWidth: Dp,
 ): Modifier = this.then(
 	SinglePaneWidthElement(
 		maxWidth = maxWidth,
@@ -58,7 +74,11 @@ private class SinglePaneWidthModifier(
 		constraints: Constraints,
 	): MeasureResult {
 		val availableWidth = constraints.maxWidth
-		val constrainedWidth = availableWidth.coerceAtMost(maxWidth.roundToPx())
+		val constrainedWidth = if (maxWidth == Dp.Unspecified) {
+			availableWidth
+		} else {
+			availableWidth.coerceAtMost(maxWidth.roundToPx())
+		}
 
 		val singlePaneConstraints = constraints.copy(minWidth = 0, maxWidth = constrainedWidth)
 		val placeable = measurable.measure(singlePaneConstraints)
@@ -70,14 +90,15 @@ private class SinglePaneWidthModifier(
 	}
 }
 
-@ScreenPreviews
+@LightScreenPreviews
+@DarkScreenPreviews
 @Composable
 private fun SinglePaneWidthModifierPreview() {
 	Box(
 		modifier = Modifier
 			.background(Color.Blue)
 			.height(50.dp)
-			.singlePaneWidth()
+			.adaptiveWidth()
 			.background(Color.Red)
 	)
 }
